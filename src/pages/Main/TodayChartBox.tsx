@@ -12,10 +12,11 @@ import {
   Legend,
   Filler,
 } from "chart.js";
-import axios from "axios";
-import { CrimeProps, CovidProps } from "./ChartData/ChartData";
+import { CrimeProps } from "./ChartData/ChartData";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading/Loading";
+import { getCovid, getCrime } from "../../api/mainAPI";
+import NotFound from "../../components/NotFound/NotFound";
 
 ChartJS.register(
   ArcElement,
@@ -30,17 +31,6 @@ ChartJS.register(
 );
 
 const TodayChartBox = () => {
-  const getCovid = async () => {
-    const reponse = await axios.get("http://127.0.0.1:3001/covid");
-
-    return reponse.data;
-  };
-  const getCrime = async () => {
-    const { data } = await axios.get("http://127.0.0.1:3001/crime");
-
-    return data;
-  };
-
   const covidData = useQuery(["covid"], getCovid, {
     refetchOnWindowFocus: false,
     retry: 0,
@@ -177,7 +167,7 @@ const TodayChartBox = () => {
   }
 
   if (covidData.isError && crimeData.isError) {
-    return <div>error</div>;
+    return <NotFound />;
   }
 
   return (

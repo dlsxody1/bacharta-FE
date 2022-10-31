@@ -45,7 +45,7 @@
 ## 1. 실행
 ### 실행 방법
 
-```sh
+```
 npm install
 
 npm run start
@@ -54,7 +54,7 @@ npm run start
 <br/>
 
 <!-- ### 데모 링크
-
+//배포를 위해서 연구중입니다.!
 [🚀 데모링크 바로가기]() -->
 
 <br/>
@@ -70,12 +70,33 @@ npm run start
 
 ### 2.2. 페이지
 
-#### 1. Main 페이지
+#### Main 페이지
 
-- bla bla.
-- bla bla.
+- React Query를 이용해 데이터 캐싱 및 상태관리
 
-<br/>
+  - 공공 API에서 받아온 데이터를 React Query 사용해 저장 후 사용
+  - Outfit page에서 저장된 Storage 유무로 page 렌더링
+    <br/>
+
+- Scroll Event
+  - react-scroll 라이브러리를 통한 스크롤 이벤트 구현
+  - 하단 고정시킨 chevron은 항상 scroll의 상단에 올라갈 수 있게 구현
+  - 아래 화살표를 눌렀을 때 옷차림과 차트를 구경할 수 있게 위치시킴.
+    <br/>
+- Chart.js 를 통한 chart 렌더링
+
+  - react-chartjs-2 를 사용했으며 , 도넛차트와 라인차트 구현
+  - Query를 통해 받은 데이터를 기반으로 chart option 바인딩
+    <br/>
+
+- API 관리
+  - axios.create를 사용해 비동기 통신을 axios 모듈화해 사용
+  - process.env 사용으로 API 키 저장
+  - Async await 사용해 비동기 통신 처리
+    <br/>
+- Style
+  - 반복되는 css 구문은 mixin을 사용해 최대한 줄이려고 노력함.
+  - color나 shadow등 마찬가지로 theme을 사용해 오차가 없게끔 구현하려고 노력함.
 
 #### 2. Map 페이지
 

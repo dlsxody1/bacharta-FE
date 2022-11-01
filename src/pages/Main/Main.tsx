@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faChevronUp,
+  faCommentDots,
+} from "@fortawesome/free-solid-svg-icons";
 import TodayChartBox from "./TodayChartBox";
 import Finance from "../../assets/Finance graph.png";
 import Cursor from "../../assets/Cursor.png";
@@ -10,8 +14,9 @@ import ExChange from "./ExChange";
 import OutfitsResult from "../../components/Outfits/OutfitsResult";
 import { tokenStorage } from "../../storage/storage";
 import NoOutfit from "./NoOutfit";
-
+import { useState } from "react";
 import * as Scroll from "react-scroll";
+import axios from "axios";
 
 const Main = () => {
   const clickDown = () => {
@@ -20,6 +25,11 @@ const Main = () => {
 
   const clickUp = () => {
     Scroll.animateScroll.scrollToTop();
+  };
+
+  const [chattingLog, setChattingLog] = useState([]);
+  const chattingOpen = () => {
+    axios.get("http://127.0.0.1:3001/chatting").then((res) => console.log(res));
   };
 
   return (
@@ -77,6 +87,9 @@ const Main = () => {
         <UpChevron>
           <FontAwesomeIcon onClick={clickUp} icon={faChevronUp} />
         </UpChevron>
+        <Chatting>
+          <FontAwesomeIcon onClick={chattingOpen} icon={faCommentDots} />
+        </Chatting>
       </PositionContainer>
     </>
   );
@@ -202,6 +215,21 @@ const PositionContainer = styled.div`
 `;
 
 const UpChevron = styled.div`
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  &:hover {
+    color: ${({ theme }) => theme.mainColor};
+  }
+  ${({ theme }) => theme.flexMixin("center", "center")};
+  box-shadow: ${({ theme }) => theme.lowModalShadow};
+`;
+
+const Chatting = styled.div`
   width: 40px;
   height: 40px;
   font-size: 30px;

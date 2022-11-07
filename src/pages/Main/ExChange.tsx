@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 // import { ExchageProps } from './MainTypes';
-import { ExchangeProps, ExchangeArrayProps } from "./ChartData/ChartData";
+import { ExchangeProps } from "./ChartData/ChartData";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading/Loading";
 import { getExchange } from "../../api/mainAPI";
@@ -21,7 +21,7 @@ const ExChange = () => {
     autoplaySpeed: 3000,
   };
 
-  const { status, data, error } = useQuery(["exchaData"], getExchange, {
+  const { status, data } = useQuery(["exchaData"], getExchange, {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: (data) => {

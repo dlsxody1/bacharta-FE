@@ -17,6 +17,8 @@ import NoOutfit from "./NoOutfit";
 import { useState } from "react";
 import * as Scroll from "react-scroll";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Modal from "./Modal";
 
 const Main = () => {
   const clickDown = () => {
@@ -27,9 +29,19 @@ const Main = () => {
     Scroll.animateScroll.scrollToTop();
   };
 
-  const [chattingLog, setChattingLog] = useState([]);
+  const [chattingLog, setChattingLog] = useState<string[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
   const chattingOpen = () => {
-    axios.get("http://127.0.0.1:3001/chatting").then((res) => console.log(res));
+    axios.post("http://127.0.0.1:3001/chatting", {
+      header: {
+        //채팅 건사람 kakaoPK 비교., id
+        id: "id",
+      },
+    });
+
+    setModalOpen((modalOpen) => !modalOpen);
+    console.log(modalOpen);
   };
 
   return (
@@ -91,6 +103,7 @@ const Main = () => {
           <FontAwesomeIcon onClick={chattingOpen} icon={faCommentDots} />
         </Chatting>
       </PositionContainer>
+      {modalOpen ? <Modal chattingLog={chattingLog} /> : ""}
     </>
   );
 };

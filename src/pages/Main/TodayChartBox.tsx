@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loading from "../../components/Loading/Loading";
 import { getCovid, getCrime } from "../../api/mainAPI";
 import NotFound from "../../components/NotFound/NotFound";
+import moment from "moment";
 
 ChartJS.register(
   ArcElement,
@@ -128,18 +129,9 @@ const TodayChartBox = () => {
     },
   };
 
-  const date = new Date();
-  const fullDay = (plusDay: number) =>
-    `${date.getFullYear()}${
-      date.getMonth() > 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
-    }${
-      date.getDate() < 10
-        ? `0${date.getDate() + plusDay}`
-        : date.getDate() + plusDay
-    }`;
-
+  const week = (i: number) => moment().add(i, "days").format("YYYY-MM-DD");
   const barLabels = new Array(7).fill("").map((arr, idx) => {
-    return fullDay(-5 + idx);
+    return week(idx - 6);
   });
   const barData = {
     labels: barLabels,
@@ -162,11 +154,11 @@ const TodayChartBox = () => {
     ],
   };
 
-  if (covidData.isLoading && crimeData.isLoading) {
+  if (covidData.isLoading || crimeData.isLoading) {
     return <Loading />;
   }
 
-  if (covidData.isError && crimeData.isError) {
+  if (covidData.isError || crimeData.isError) {
     return <NotFound />;
   }
 
